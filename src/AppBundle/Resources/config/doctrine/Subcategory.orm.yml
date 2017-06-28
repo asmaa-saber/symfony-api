@@ -1,0 +1,30 @@
+AppBundle\Entity\Subcategory:
+    type: entity
+    table: subcategory
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+        categoryId:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: category_id
+    manyToOne:
+        category:
+            targetEntity: Category
+            inversedBy: subcategories
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

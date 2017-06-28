@@ -1,0 +1,58 @@
+AppBundle\Entity\Order:
+    type: entity
+    table: order
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        customerId:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: customer_id
+        totalAmountNet:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+            column: total_amount_net
+        shippingCosts:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+            column: shipping_costs
+        discountValue:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 0
+            default: '0'
+            column: discount_value
+        paymentMethodId:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: payment_method_id
+    manyToOne:
+        customer:
+            targetEntity: PaymentMethod
+            inversedBy: orders
+            joinColumn:
+                name: payment_method_id
+                referencedColumnName: id
+    manyToOne:
+        customer:
+            targetEntity: Customer
+            inversedBy: orders
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

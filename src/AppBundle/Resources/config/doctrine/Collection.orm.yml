@@ -1,0 +1,23 @@
+AppBundle\Entity\Collection:
+    type: entity
+    table: collection
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+        onDiscount:
+            type: boolean
+            nullable: false
+            default: '0'
+            column: on_discount
+    lifecycleCallbacks: {  }
