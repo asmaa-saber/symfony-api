@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrderItem
 {
+    
     /**
      * @var integer
      */
@@ -55,14 +56,19 @@ class OrderItem
     private $category;
 
     /**
+     * @var \AppBundle\Entity\Collection
+     */
+    private $collection;
+
+    /**
      * @var \AppBundle\Entity\Subcategory
      */
     private $subcategory;
 
     /**
-     * @var \AppBundle\Entity\Collection
+     * @var \AppBundle\Entity\Order
      */
-    private $collection;
+    private $order;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -80,7 +86,7 @@ class OrderItem
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -103,7 +109,7 @@ class OrderItem
     /**
      * Get orderId
      *
-     * @return integer
+     * @return integer 
      */
     public function getOrderId()
     {
@@ -126,7 +132,7 @@ class OrderItem
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -149,7 +155,7 @@ class OrderItem
     /**
      * Get quantity
      *
-     * @return integer
+     * @return integer 
      */
     public function getQuantity()
     {
@@ -172,7 +178,7 @@ class OrderItem
     /**
      * Get value
      *
-     * @return string
+     * @return string 
      */
     public function getValue()
     {
@@ -195,7 +201,7 @@ class OrderItem
     /**
      * Get categoryId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCategoryId()
     {
@@ -218,7 +224,7 @@ class OrderItem
     /**
      * Get subcategoryId
      *
-     * @return integer
+     * @return integer 
      */
     public function getSubcategoryId()
     {
@@ -241,7 +247,7 @@ class OrderItem
     /**
      * Get collectionId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCollectionId()
     {
@@ -264,7 +270,7 @@ class OrderItem
     /**
      * Get category
      *
-     * @return \AppBundle\Entity\Category
+     * @return \AppBundle\Entity\Category 
      */
     public function getCategory()
     {
@@ -272,7 +278,30 @@ class OrderItem
     }
 
     /**
-     * Set Subcategory
+     * Set collection
+     *
+     * @param \AppBundle\Entity\Collection $collection
+     * @return OrderItem
+     */
+    public function setCollection(\AppBundle\Entity\Collection $collection = null)
+    {
+        $this->collection = $collection;
+
+        return $this;
+    }
+
+    /**
+     * Get collection
+     *
+     * @return \AppBundle\Entity\Collection 
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
+     * Set subcategory
      *
      * @param \AppBundle\Entity\Subcategory $subcategory
      * @return OrderItem
@@ -287,34 +316,34 @@ class OrderItem
     /**
      * Get subcategory
      *
-     * @return \AppBundle\Entity\Subcategory
+     * @return \AppBundle\Entity\Subcategory 
      */
     public function getSubcategory()
     {
-        return $this->category;
+        return $this->subcategory;
     }
 
     /**
-     * Set collection
+     * Set order
      *
-     * @param \AppBundle\Entity\Collection $collection
+     * @param \AppBundle\Entity\Order $order
      * @return OrderItem
      */
-    public function setCollection(\AppBundle\Entity\Collection $collection = null)
+    public function setOrder(\AppBundle\Entity\Order $order = null)
     {
-        $this->category = $collection;
+        $this->order = $order;
 
         return $this;
     }
 
     /**
-     * Get collection
+     * Get order
      *
-     * @return \AppBundle\Entity\Collection
+     * @return \AppBundle\Entity\Order 
      */
-    public function getCollection()
+    public function getOrder()
     {
-        return $this->collection;
+        return $this->order;
     }
 
     /**
@@ -343,7 +372,7 @@ class OrderItem
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getTags()
     {

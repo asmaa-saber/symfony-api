@@ -1,6 +1,6 @@
 AppBundle\Entity\Order:
     type: entity
-    table: order
+    table: orders
     id:
         id:
             type: integer
@@ -10,6 +10,11 @@ AppBundle\Entity\Order:
             generator:
                 strategy: IDENTITY
     fields:
+        apiOrderId:
+            type: integer
+            nullable: false
+            unsigned: false
+            column: api_order_id
         customerId:
             type: integer
             nullable: false
@@ -19,22 +24,22 @@ AppBundle\Entity\Order:
             type: decimal
             nullable: false
             precision: 10
-            scale: 0
-            default: '0'
+            scale: 2
+            default: '0.00'
             column: total_amount_net
         shippingCosts:
             type: decimal
             nullable: false
             precision: 10
-            scale: 0
-            default: '0'
+            scale: 2
+            default: '0.00'
             column: shipping_costs
         discountValue:
             type: decimal
             nullable: false
             precision: 10
-            scale: 0
-            default: '0'
+            scale: 2
+            default: '0.00'
             column: discount_value
         paymentMethodId:
             type: integer
@@ -42,17 +47,24 @@ AppBundle\Entity\Order:
             unsigned: false
             column: payment_method_id
     manyToOne:
-        customer:
+        paymentMethod:
             targetEntity: PaymentMethod
             inversedBy: orders
+            cascade: [ persist ]
             joinColumn:
                 name: payment_method_id
                 referencedColumnName: id
-    manyToOne:
         customer:
             targetEntity: Customer
             inversedBy: orders
+            cascade: [ persist ]
             joinColumn:
                 name: customer_id
                 referencedColumnName: id
+    oneToMany:
+        orderItems:
+            targetEntity: OrderItem
+            orphanRemoval: true
+            mappedBy: order
+            cascade: [ persist ]
     lifecycleCallbacks: {  }

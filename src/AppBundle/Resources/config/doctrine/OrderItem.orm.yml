@@ -28,8 +28,8 @@ AppBundle\Entity\OrderItem:
             type: decimal
             nullable: false
             precision: 10
-            scale: 0
-            default: '0'
+            scale: 2
+            default: '0.00'
         categoryId:
             type: integer
             nullable: false
@@ -52,30 +52,29 @@ AppBundle\Entity\OrderItem:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-    manyToOne:
         collection:
             targetEntity: Collection
             inversedBy: orderItems
             joinColumn:
                 name: collection_id
                 referencedColumnName: id
-    manyToOne:
         subcategory:
             targetEntity: Subcategory
             inversedBy: orderItems
             joinColumn:
                 name: subcategory_id
                 referencedColumnName: id
-    manyToOne:
         order:
             targetEntity: Order
             inversedBy: orderItems
+#            cascade: [ persist ]
             joinColumn:
                 name: order_id
                 referencedColumnName: id
     manyToMany:
         tags:
           targetEntity: Tag
+          cascade:      [persist]
           joinTable:
             name: order_item_tag
             joinColumns:
