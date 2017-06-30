@@ -1,0 +1,21 @@
+AppBundle\Entity\Settings:
+    type: entity
+    table: settings
+    id:
+        settingKey:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+            id: true
+            column: setting_key
+            generator:
+                strategy: IDENTITY
+    fields:
+        settingValue:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+            column: setting_value
+    lifecycleCallbacks: {  }
