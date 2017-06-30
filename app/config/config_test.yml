@@ -15,13 +15,6 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
-#doctrine:
-#    dbal:
-#        host: '%test_database_host%'
-#        dbname: '%test_database_name%'
-#        user: '%test_database_user%'
-#        password: '%test_database_password%'
-
 doctrine:
     dbal:
         default_connection: default
