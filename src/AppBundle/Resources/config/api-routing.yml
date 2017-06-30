@@ -1,0 +1,3 @@
+orders_api:
+    type: rest
+    resource: "@AppBundle/Controller/OrdersController.php"

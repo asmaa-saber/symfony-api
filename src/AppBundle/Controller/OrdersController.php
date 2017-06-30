@@ -2,20 +2,42 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Order;
+use AppBundle\Form\OrderType;
+use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class OrdersController extends Controller
+class OrdersController extends FOSRestController
 {
-    /**
-     * @Route("/api/v1/orders.json", name="add")
-     * @method("POST")
-     */
-    public function postAction(Request $request)
+
+    public function postOrdersAction(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        return new JsonResponse($data);
+        $em = $this->getDoctrine()->getManager();
+
+        $order = new Order();
+        $form = $this->createForm(new OrderType($this->getDoctrine()->getManager()), $order);
+        $data = $request->request->get('parameters['.$form->getName().']',null,true);
+
+        try
+        {
+            $form->submit($data);
+            if($form->isValid())
+            {
+                $order->calculateDiscount();
+                $em->persist($order);
+                $em->flush();
+            }
+            else
+                return $form->getErrorsAsString();
+        }
+        catch (Exception $e)
+        {
+            return new JsonResponse(array($e->getMessage()));
+        }
+
+        return $order;
     }
+
 }
