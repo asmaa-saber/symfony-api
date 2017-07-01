@@ -5,9 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Order;
 use AppBundle\Form\OrderType;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrdersController extends FOSRestController
 {
@@ -20,24 +20,17 @@ class OrdersController extends FOSRestController
         $form = $this->createForm(new OrderType($this->getDoctrine()->getManager()), $order);
         $data = $request->request->get('parameters['.$form->getName().']',null,true);
 
-        try
+        $form->submit($data);
+        if($form->isValid())
         {
-            $form->submit($data);
-            if($form->isValid())
-            {
-                $order->calculateDiscount();
-                $em->persist($order);
-                $em->flush();
-            }
-            else
-                return $form->getErrorsAsString();
+            $order->calculateDiscount();
+            $em->persist($order);
+            $em->flush();
         }
-        catch (Exception $e)
-        {
-            return new JsonResponse(array($e->getMessage()));
-        }
+        else
+            return new JsonResponse($form->getErrors(),Response::HTTP_UNPROCESSABLE_ENTITY);
 
-        return $order;
+        return new JsonResponse(null,Response::HTTP_CREATED);
     }
 
 }
